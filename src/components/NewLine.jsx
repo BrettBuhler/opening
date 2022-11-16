@@ -4,17 +4,17 @@ import { Chessboard } from 'react-chessboard'
 import { Chess } from 'chess.js'
 import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
+import audioBack from '../audio/audioBack.mp3'
+import userService from '../services/chessList'
 
 /**
  * The NewLine component renders an interactive chessboard where the user can input a new line.
- * Before the component is rendered, the app will verify the user is logged in, and that the lines name does not
- * already exist. If the line already exists, the user will be returned to the main menu and see an error message.
  * Once the user is finished inputing thier line, they can click the "save line" button to have thier line saved
- * to the DataBase under their username.
+ * to the DataBase under their username (default username is guest).
  * Lines are color agnostic... meaning when a line is saved, the line can be played as either black or white.
  */
 
-const NewLine = ({ user, width, height }) => {
+const NewLine = ({ user, lines, width, height }) => {
     //sets size of chessboard relative to window size
     const square = width < height ? width : height
     //init new chessboard
@@ -23,20 +23,18 @@ const NewLine = ({ user, width, height }) => {
     const [fenList, setFenList] = useState([])
     //init a bool state (true = white false = black)
     const [side, setSide] = useState(true)
+    //store opening names that already exist in the data base
     //useEffect hooks to ensure component state is not overwriten
     useEffect (()=>{
         setChess(new Chess())
-    },[])
-    useEffect (()=> {
         setFenList([])
     },[])
-    //getFen generates an exportable fen string from fenList
+    //getFen generates an exportable fen string from fenList (This is how lines are saved to the DB)
     const getFen = () => {
         const dict = {}
         for (let i = 0; i < fenList.length; i++){
-            dict[fenList[i][0]] = fenList[i][1]
+            dict[fenList[i][0]] = [fenList[i][1]]
         }
-        console.log(dict)
         return dict
     }
     //onDrop updates the chessboard, and fenList if a legal move has been made
@@ -68,13 +66,40 @@ const NewLine = ({ user, width, height }) => {
     const toggleSide = () => {
         setSide(!side)
     }
+    //Undo a Move
+    const handleBack = () =>{
+        if (fenList.length == 0){
+            let audio = new Audio(computerError)
+            audio.play()
+        } else {
+            setFenList(fenList.slice(0, fenList.length - 1))
+            let lastChess = new Chess()
+            lastChess.loadPgn(fenList[fenList.length - 1][0])
+            setChess(lastChess)
+            let audio = new Audio(audioBack)
+            audio.play()
+        }
+    }
     //Saves Line to DataBase
     const handleSave = () => {
         if (window.confirm(`Save this line under ${user}?`)){
             const name = window.prompt('Please give this line a unique name.')
-            console.log(name)
-            //todo... implement feature to get lines from DB under user name, and save the new line to the DB if 
-            //the line does not exist
+            const openings = []
+            for (let i in lines.openings){
+                openings.push(i)
+            }
+            if (openings.includes(name)){
+                console.error(`${name} is already saved, please try to save the line with a new name.`)
+                alert(`"${name}" is already taken, please try again.`)
+            } else {
+                lines.openings[name] = getFen()
+                userService.deleteUser(user).then(()=>{
+                    userService.createUser(lines)
+                })
+                /**
+                 * TODO: Implement React router to return to homePage after a new line is created
+                 */
+            }
         }
     }
     return (
@@ -87,6 +112,7 @@ const NewLine = ({ user, width, height }) => {
             />
             <button className='sideButton button' onClick={toggleSide}>SIDE</button>
             <button onClick={handleSave}>Save</button>
+            <button onClick={handleBack}>Back</button>
         </div>
     )
 }
