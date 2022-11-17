@@ -3,6 +3,7 @@ import { useState } from 'react'
 import userService from './services/chessList'
 import NewLine from './components/NewLine'
 import Test from './components/Test'
+import PlayLine from './components/PlayLine'
 
 const App = () => {
   //dynamicaly set width and hieght relative to display or window size
@@ -40,18 +41,21 @@ const App = () => {
     })
   }, [])
 
+  //FOR TESTING
   const logThis = () => {
     console.log(lines.openings)
   }
+  const lineName = "Petrov"
+  //FOR TESTING
   return (
     <div>
-      <NewLine
-        user={user}
-        lines={lines}
+      <PlayLine
         width={width}
         height={height}
-       />
-       <button onClick={logThis}>log</button>
+        line = {lines.openings}
+        side = {'white'}
+      />
+      <button onClick={logThis}>log</button>
     </div>
   )
 }
