@@ -2,6 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Chessboard } from 'react-chessboard'
 import { Chess } from 'chess.js'
+import { Route } from 'react-router-dom'
+import { redirect as Redirect } from 'react-router-dom'
+import WinScreen from './WinScreen'
 import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
 
@@ -13,7 +16,7 @@ import gameMove from '../audio/gameMove.mp3'
  * , the component will not recognize the move as valid)
  */
 
-const PlayLine = ({width, height, line, side}) => {
+const PlayLine = ({ width, height, line, side }) => {
 
     const [chess, setChess] = useState(new Chess())
 
@@ -60,23 +63,28 @@ const PlayLine = ({width, height, line, side}) => {
     const onDrop = (from, to) => {
         let copy = new Chess()
         let isValid
+        let endLine = false
         copy.loadPgn(chess.pgn())
         copy.move({ from, to }) ? isValid = true : isValid = false
         if(isValid){
             if (line[chess.pgn()].includes(copy.pgn())){
                 setChess(copy)
                 let audio = new Audio(gameMove)
-                audio.play()
                 if(!line[line[chess.pgn()]]){
                     alert('You finishd the Line!')
-                    //TODO: add react rounter to return to main page
+                    endLine = true
+                    setChess(false)
                 } else if (side == 'black'){
                     if(!line[line[line[chess.pgn()]]]){
                         alert('You finished the Line!')
-                        //TODO: add react rounter to return to main page
+                        endLine = true
+                        setChess(false)
                     }
                 }
-                makeNextMove()
+                if (!endLine){
+                    audio.play()
+                    makeNextMove()
+                }
             } else {
                 let audio = new Audio(computerError)
                 audio.play()
@@ -92,7 +100,6 @@ const PlayLine = ({width, height, line, side}) => {
             let audio = new Audio(computerError)
             audio.play()
         }
-        return copy
     }
 
     const makeNextMove = () => {
@@ -107,16 +114,24 @@ const PlayLine = ({width, height, line, side}) => {
         }
     }
 
-    return (
-        <div>
-            <Chessboard
-                boardWidth={square * 0.8}
-                onPieceDrop={onDrop}
-                position={chess.fen()}
-                boardOrientation={side}
-            />
-        </div>
-    )
+    if (chess === false){
+        return (
+            <div>
+                <WinScreen setChess={setChess}/>
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <Chessboard
+                    boardWidth={square * 0.8}
+                    onPieceDrop={onDrop}
+                    position={chess.fen()}
+                    boardOrientation={side}
+                />
+            </div>
+        )
+    }
 }
 
 export default PlayLine

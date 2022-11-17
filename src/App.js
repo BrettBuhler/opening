@@ -1,9 +1,13 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import userService from './services/chessList'
+import { Link, Route, Routes, BrowserRouter } from 'react-router-dom'
+import HomeRoute from './routes/HomeRoute'
 import NewLine from './components/NewLine'
 import Test from './components/Test'
 import PlayLine from './components/PlayLine'
+import NewLineRoute from './routes/NewLineRoute'
+import PlayLineRoute from './routes/PlayLineRoute'
 
 const App = () => {
   //dynamicaly set width and hieght relative to display or window size
@@ -11,6 +15,8 @@ const App = () => {
   const [height, setHeight] = useState(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)
   const [user, setUser] = useState('guest')
   const [lines, setLines] = useState({})
+  const [side, setSide] = useState('white')
+  const [toPlay, setToPlay] = useState('')
 
   //handler function to implement a responsive chessboard
   const resizeHandler = () => {
@@ -45,18 +51,25 @@ const App = () => {
   const logThis = () => {
     console.log(lines.openings)
   }
-  const lineName = "Petrov"
   //FOR TESTING
   return (
-    <div>
-      <PlayLine
-        width={width}
-        height={height}
-        line = {lines.openings}
-        side = {'white'}
-      />
-      <button onClick={logThis}>log</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<HomeRoute/>}/>
+        <Route path='/newline' element={<NewLineRoute
+          user={user}
+          lines={lines}
+          width={width}
+          height={height}
+        />}/>
+        <Route path='/playline' element={<PlayLineRoute
+          width={width}
+          height={height}
+          line={lines.openings}
+          side={side}
+        />}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
