@@ -6,6 +6,7 @@ import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
 import audioBack from '../audio/audioBack.mp3'
 import userService from '../services/chessList'
+import { Navigate } from 'react-router-dom'
 
 /**
  * The NewLine component renders an interactive chessboard where the user can input a new line.
@@ -23,6 +24,9 @@ const NewLine = ({ user, lines, width, height }) => {
     const [fenList, setFenList] = useState([])
     //init a bool state (true = white false = black)
     const [side, setSide] = useState(true)
+    //bool value that returns the user to main menu after they have saved
+    const [saved, setSaved] = useState(false)
+
     //store opening names that already exist in the data base
     //useEffect hooks to ensure component state is not overwriten
     useEffect (()=>{
@@ -96,25 +100,29 @@ const NewLine = ({ user, lines, width, height }) => {
                 userService.deleteUser(user).then(()=>{
                     userService.createUser(lines)
                 })
-                /**
-                 * TODO: Implement React router to return to homePage after a new line is created
-                 */
+                setSaved(true)
             }
         }
     }
-    return (
-        <div>
-            <Chessboard
-                boardWidth={square * 0.8}
-                onPieceDrop={onDrop}
-                position={chess.fen()}
-                boardOrientation={getSide(side)}
-            />
-            <button className='sideButton button' onClick={toggleSide}>SIDE</button>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleBack}>Back</button>
-        </div>
-    )
+    if(!saved){
+        return (
+            <div>
+                <Chessboard
+                    boardWidth={square * 0.8}
+                    onPieceDrop={onDrop}
+                    position={chess.fen()}
+                    boardOrientation={getSide(side)}
+                />
+                <button className='sideButton button' onClick={toggleSide}>SIDE</button>
+                <button onClick={handleSave}>Save</button>
+                <button onClick={handleBack}>Back</button>
+            </div>
+        )
+    } else {
+        return (
+            <Navigate to='/' />
+        )
+    }
 }
 
 export default NewLine

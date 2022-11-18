@@ -8,6 +8,7 @@ const Home = ({}) => {
                 <p>THIS IS HOME</p>
                 <Link to='/newline'>NewLine</Link>
                 <Link to='/playline'>PlayLine</Link>
+                <Link to='/editline'>Edit Line</Link>
             </div>
         </div>
     )

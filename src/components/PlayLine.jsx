@@ -20,31 +20,6 @@ const PlayLine = ({ width, height, line, side }) => {
 
     const [chess, setChess] = useState(new Chess())
 
-    //Manualy set line for testing
-    line = {
-        "": [
-            "1. e4"
-        ],
-        "1. e4": [
-            "1. e4 e5"
-        ],
-        "1. e4 e5": [
-            "1. e4 e5 2. Nf3"
-        ],
-        "1. e4 e5 2. Nf3": [
-            "1. e4 e5 2. Nf3 Nf6"
-        ],
-        "1. e4 e5 2. Nf3 Nf6": [
-            "1. e4 e5 2. Nf3 Nf6 3. Nxe5"
-        ],
-        "1. e4 e5 2. Nf3 Nf6 3. Nxe5": [
-            "1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6"
-        ],
-        "1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6": [
-            "1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3"
-        ]
-    }
-
     useEffect(()=>{
         setChess(new Chess())
         if (side == 'black'){
@@ -129,6 +104,7 @@ const PlayLine = ({ width, height, line, side }) => {
                     position={chess.fen()}
                     boardOrientation={side}
                 />
+                <button onClick={()=>{console.log(line)}}>Show Line</button>
             </div>
         )
     }

@@ -3,11 +3,9 @@ import { useState } from 'react'
 import userService from './services/chessList'
 import { Link, Route, Routes, BrowserRouter } from 'react-router-dom'
 import HomeRoute from './routes/HomeRoute'
-import NewLine from './components/NewLine'
-import Test from './components/Test'
-import PlayLine from './components/PlayLine'
 import NewLineRoute from './routes/NewLineRoute'
 import PlayLineRoute from './routes/PlayLineRoute'
+import EditLineRoute from './routes/EditLineRoute'
 
 const App = () => {
   //dynamicaly set width and hieght relative to display or window size
@@ -67,6 +65,11 @@ const App = () => {
           height={height}
           line={lines.openings}
           side={side}
+        />}/>
+        <Route path='/editline' element={<EditLineRoute
+          lines={lines}
+          width={width}
+          height={height}
         />}/>
       </Routes>
     </BrowserRouter>
