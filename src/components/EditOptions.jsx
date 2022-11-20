@@ -31,12 +31,12 @@ const EditOptions = ({line, userObject, square}) => {
             break
         case 'Add Side-line':
             return (
-                <div>Sideline</div>
+                <EditLineSelector line={line} userObject={userObject} square={square} mode={'Add Side-line'}/>
             )
             break
         case 'Edit Line':
             return (
-                <EditLineSelector line={line} userObject={userObject} square={square}/>
+                <EditLineSelector line={line} userObject={userObject} square={square} mode={'Edit Line'}/>
             )
         default:
             return (

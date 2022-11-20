@@ -9,6 +9,7 @@ const Home = ({}) => {
                 <Link to='/newline'>NewLine</Link>
                 <Link to='/playline'>PlayLine</Link>
                 <Link to='/editline'>Edit Line</Link>
+                <Link to='/endless'>Endless Play</Link>
             </div>
         </div>
     )

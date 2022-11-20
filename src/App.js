@@ -6,6 +6,7 @@ import HomeRoute from './routes/HomeRoute'
 import NewLineRoute from './routes/NewLineRoute'
 import PlayLineRoute from './routes/PlayLineRoute'
 import EditLineRoute from './routes/EditLineRoute'
+import EndlessRoute from './routes/EndlessRoute'
 
 const App = () => {
   //dynamicaly set width and hieght relative to display or window size
@@ -14,7 +15,6 @@ const App = () => {
   const [user, setUser] = useState('guest')
   const [lines, setLines] = useState({})
   const [side, setSide] = useState('white')
-  const [toPlay, setToPlay] = useState('')
 
   //handler function to implement a responsive chessboard
   const resizeHandler = () => {
@@ -67,6 +67,11 @@ const App = () => {
           side={side}
         />}/>
         <Route path='/editline' element={<EditLineRoute
+          lines={lines}
+          width={width}
+          height={height}
+        />}/>
+        <Route path ='endless' element ={<EndlessRoute
           lines={lines}
           width={width}
           height={height}

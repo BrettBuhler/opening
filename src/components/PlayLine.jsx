@@ -2,8 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Chessboard } from 'react-chessboard'
 import { Chess } from 'chess.js'
-import { Route } from 'react-router-dom'
-import { redirect as Redirect } from 'react-router-dom'
 import WinScreen from './WinScreen'
 import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
@@ -22,12 +20,12 @@ const PlayLine = ({ width, height, line, side }) => {
 
     useEffect(()=>{
         setChess(new Chess())
-        if (side == 'black'){
+        if (side === 'black'){
             let copy = new Chess()
             copy.loadPgn(line[''][0])
             setChess(copy)
         }
-    },[])
+    },[line, side])
 
     //sets size of chessboard relative to window size
     const square = width < height ? width : height
@@ -49,7 +47,7 @@ const PlayLine = ({ width, height, line, side }) => {
                     alert('You finishd the Line!')
                     endLine = true
                     setChess(false)
-                } else if (side == 'black'){
+                } else if (side === 'black'){
                     if(!line[line[line[chess.pgn()]]]){
                         alert('You finished the Line!')
                         endLine = true
@@ -63,7 +61,7 @@ const PlayLine = ({ width, height, line, side }) => {
             } else {
                 let audio = new Audio(computerError)
                 audio.play()
-                if (side == 'black'){
+                if (side === 'black'){
                     let newChess = new Chess()
                     newChess.loadPgn(line[''][0])
                     setChess(newChess)
@@ -77,13 +75,19 @@ const PlayLine = ({ width, height, line, side }) => {
         }
     }
 
+    //makes the next move in the line
     const makeNextMove = () => {
         let nextMove = line[chess.pgn()]
-        let index = Math.floor(Math.random(nextMove.length))
+        let num = line[nextMove].length
+        let index = Math.floor(Math.random() * num)
         if (line[nextMove][index]){
             let copy = new Chess()
             copy.loadPgn(line[nextMove][index])
             setChess(copy)
+            //check if a next move is in the line, if not user has won and chess is set to false
+            if (!line[copy.pgn()]){
+                setChess(false)
+            }
         } else {
             console.log('end')
         }

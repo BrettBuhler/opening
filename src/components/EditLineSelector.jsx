@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import MuiSelect from './MuiSelect'
 import { Box, Button, Typography } from '@mui/material'
 import EditLine from './EditLine'
+import AddSideLine from './AddSideLine'
 
-const EditLineSelector = ({ line, userObject, square}) => {
+const EditLineSelector = ({ line, userObject, square, mode }) => {
     const [positions, setPositions] = useState([])
     const [displayPosition, setDisplayPosition] = useState(new Chess())
     const [positionSelected, setPositionSelected] = useState(false)
@@ -38,9 +39,13 @@ const EditLineSelector = ({ line, userObject, square}) => {
                 <Button fullWidth={true} onClick={handleClick}>Continue</Button>
             </Box>
         )
-    } else {
+    } else if (mode == 'Edit Line') {
         return (
             <EditLine line={line} userObject={userObject} displayPosition={displayPosition} square={square}/>
+        )
+    } else {
+        return (
+            <AddSideLine line={line} userObject={userObject} displayPosition={displayPosition} square={square}/>
         )
     }
 }
