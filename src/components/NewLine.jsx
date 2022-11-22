@@ -32,6 +32,9 @@ const NewLine = ({ user, lines, width, height }) => {
     useEffect (()=>{
         setChess(new Chess())
         setFenList([])
+        if (!lines.openings){
+            lines['openings'] = {}
+        }
     },[])
     //getFen generates an exportable fen string from fenList (This is how lines are saved to the DB)
     const getFen = () => {

@@ -1,10 +1,14 @@
 import React from 'react'
 import Home from '../components/Home'
 
-const HomeRoute = () => {
+const HomeRoute = ({ setUser, userInfo, setUserInfo }) => {
     return (
         <div>
-            <Home/>
+            <Home
+                setUser={setUser}
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+            />
         </div>
     )
 }

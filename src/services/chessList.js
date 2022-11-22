@@ -10,7 +10,13 @@ const baseUrl = 'https://opening-db.uc.r.appspot.com/api/users'
 //get a user's data by username (email for users who login, or 'guest' for those who don't)
 const getUser = (userName) => {
     const req = axios.get(`${baseUrl}/${userName}`)
-    return req.then(res => res.data)
+        .then(res => {
+           return res.data
+        }).catch(error=>{
+            const newReq = createUser({openings:{},userName:userName})
+            return newReq.then(res=>res)
+        })
+    return req.then(res=>res)
 }
 
 //create a new user

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import userService from './services/chessList'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { Link, Route, Routes, BrowserRouter } from 'react-router-dom'
 import HomeRoute from './routes/HomeRoute'
 import NewLineRoute from './routes/NewLineRoute'
@@ -13,6 +14,7 @@ const App = () => {
   const [width, setWidth] = useState(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)
   const [height, setHeight] = useState(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)
   const [user, setUser] = useState('guest')
+  const [userInfo, setUserInfo] = useState({ name: 'guest', email: 'guest'})
   const [lines, setLines] = useState({})
   const [side, setSide] = useState('white')
 
@@ -34,16 +36,20 @@ const App = () => {
   
   //get Lines from DB, if user does not exist in DB, set local state to a new user object
   useEffect(()=> {
+    console.log('useEffect')
     userService.getUser(user).then(res => {
-      setLines(res)
-    }).catch(()=>{
-      setLines({
-        openings: {
-        },
-        userName: user
-      })
+      if(res.userName){
+        if(res.openings){
+          setLines(res)
+        } else {
+          setLines({
+            openings: {},
+            userName: res.userName
+          })
+        }
+      }
     })
-  }, [])
+  }, [user])
 
   //FOR TESTING
   const logThis = () => {
@@ -51,33 +57,41 @@ const App = () => {
   }
   //FOR TESTING
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<HomeRoute/>}/>
-        <Route path='/newline' element={<NewLineRoute
-          user={user}
-          lines={lines}
-          width={width}
-          height={height}
-        />}/>
-        <Route path='/playline' element={<PlayLineRoute
-          width={width}
-          height={height}
-          line={lines.openings}
-          side={side}
-        />}/>
-        <Route path='/editline' element={<EditLineRoute
-          lines={lines}
-          width={width}
-          height={height}
-        />}/>
-        <Route path ='endless' element ={<EndlessRoute
-          lines={lines}
-          width={width}
-          height={height}
-        />}/>
-      </Routes>
-    </BrowserRouter>
+    <GoogleOAuthProvider clientId='720674888113-prj4llvboojk0ldt15dievrdpgfntlvr.apps.googleusercontent.com'>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<HomeRoute
+            setUser={setUser}
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+            side={side}
+            setSide={setSide}
+          />}/>
+          <Route path='/newline' element={<NewLineRoute
+            user={user}
+            lines={lines}
+            width={width}
+            height={height}
+          />}/>
+          <Route path='/playline' element={<PlayLineRoute
+            width={width}
+            height={height}
+            line={lines.openings}
+            side={side}
+          />}/>
+          <Route path='/editline' element={<EditLineRoute
+            lines={lines}
+            width={width}
+            height={height}
+          />}/>
+          <Route path ='endless' element ={<EndlessRoute
+            lines={lines}
+            width={width}
+            height={height}
+          />}/>
+        </Routes>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   )
 }
 
