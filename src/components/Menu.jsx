@@ -13,7 +13,6 @@ const Menu = ({ items, menuName, setOption, login , setUser, setUserInfo, userIn
     const onClick = (event) => {
         setOption(event.target.value)
     }
-
     /*
     onHover shifts the position and size of a background image and a background pattern when a user moses over a menu item.
     The shifts in position and size of the image and pattern are differnt. This creates a "parallax" effect
@@ -54,7 +53,7 @@ const Menu = ({ items, menuName, setOption, login , setUser, setUserInfo, userIn
     }
 
     /*
-    off hover slightly changes the background patterns size when the user mouses off a menu item
+    offHover slightly changes the background patterns size when the user mouses off a menu item
     */
     const offHover = () => {
         const pSize = parseInt(pictureSize)
