@@ -32,7 +32,6 @@ const Menu = ({ items, menuName, setOption, login , setUser, setUserInfo, userIn
         }
         const randomSize = Math.floor(Math.random() * 9) + 12
         setBackgroundSize(`${randomSize}vmin ${randomSize}vmin`)
-        console.log('picture style:', pStyle)
         switch(backgroundStyle){
             case '0':
                 setBackgroundStyle('-25')
@@ -58,7 +57,6 @@ const Menu = ({ items, menuName, setOption, login , setUser, setUserInfo, userIn
     const offHover = () => {
         const pSize = parseInt(pictureSize)
         const pStyle = parseInt(pictureStyle)
-        console.log([pSize, pStyle])
         setPictureSize(`${pSize + 5}`)
         setPictureStyle(`${pStyle + 10}`)
         const nums = backgroundSize.split('').filter(x=>parseInt(x))

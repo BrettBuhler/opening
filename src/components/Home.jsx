@@ -13,9 +13,6 @@ const Home = ({ setUser, userInfo, setUserInfo }) => {
         return (
             <Box>
                 <Menu items={['New Line', 'Edit Line', 'Play Line', 'Endless', 'Help']} menuName={'Main Menu'} setOption={setOption} setUser={setUser} setUserInfo={setUserInfo} login={true} userInfo={userInfo}/>
-                <Box>
-                    {userInfo.name}
-                </Box>
             </Box>
         )
     } else {
@@ -32,6 +29,8 @@ const Home = ({ setUser, userInfo, setUserInfo }) => {
             case 'Endless':
                 return <Navigate to='/endless'/>
                 break
+            case 'Help':
+                return <Navigate to='/help'/>
             default:
                 return <Navigate to='/'/>
         }

@@ -1,16 +1,19 @@
 import { Box } from '@mui/system'
+import TopBar from './TopBar'
+import BottomBar from './BottomBar'
 import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import gameMove from '../audio/gameMove.mp3'
 import computerError from '../audio/computerError.mp3'
-import { getSliderUtilityClass } from '@mui/base'
+import audioBack from '../audio/audioBack.mp3'
 
-const Endless = ({ lines, side, square }) => {
+const Endless = ({ lines, side, square, userInfo }) => {
     const [possiblePositions, setPossiblePositions] = useState('')
     const [possibleEnds, setPossibleEnds] = useState('')
     const [chess, setChess] = useState(new Chess())
+    const [hints, setHints] = useState([])
 
     useEffect(()=>{
         let openingArr = []
@@ -53,6 +56,13 @@ const Endless = ({ lines, side, square }) => {
                 let tempChess = new Chess()
                 let index = Math.floor(Math.random() * possiblePositions.length)
                 tempChess.loadPgn(possiblePositions[index])
+                if (tempChess.pgn() == chess.pgn()){
+                    while (tempChess.pgn() == chess.pgn()){
+                        index = Math.floor(Math.random() * possiblePositions.length)
+                        tempChess = new Chess()
+                        tempChess.loadPgn(possiblePositions[index])
+                    }
+                }
                 setChess(tempChess)
             } else {
                 let audio = new Audio(computerError)
@@ -64,9 +74,29 @@ const Endless = ({ lines, side, square }) => {
         }
     }
 
+    const handleSkip = () => {
+        let tempChess = new Chess()
+            let index = Math.floor(Math.random() * possiblePositions.length)
+            tempChess.loadPgn(possiblePositions[index])
+            if (tempChess.pgn() == chess.pgn()){
+                while (tempChess.pgn() == chess.pgn()){
+                    index = Math.floor(Math.random() * possiblePositions.length)
+                    tempChess = new Chess()
+                    tempChess.loadPgn(possiblePositions[index])
+                }
+            }
+            let audio = new Audio(audioBack)
+            audio.play()
+            setChess(tempChess)
+    }
+
     return (
         <Box>
-            <Chessboard boardOrientation={side} boardWidth={square * 0.8} position={chess.fen()} onPieceDrop={onDrop}/>
+            <TopBar login={false} userInfo={userInfo} menuName={'Endless Chess'}/>
+            <Box className={'chessBox'}>
+                <Chessboard boardOrientation={side} boardWidth={square * 0.8} position={chess.fen()} onPieceDrop={onDrop}/>
+            </Box>
+            <BottomBar width={square* 0.8} buttons={[['Skip', handleSkip]]}/>
         </Box>
     )
 }

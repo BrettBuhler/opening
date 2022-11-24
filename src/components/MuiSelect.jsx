@@ -1,9 +1,9 @@
-import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material"
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from "@mui/material"
 import { useState, useEffect } from "react"
 import { Chess } from "chess.js"
 import gameMove from '../audio/gameMove.mp3'
 
-const MuiSelect = ({ positions, setDisplayPosition }) => {
+const MuiSelect = ({ positions, setDisplayPosition, width }) => {
     const [fen, setFen] = useState('')
 
     
@@ -15,17 +15,27 @@ const MuiSelect = ({ positions, setDisplayPosition }) => {
         let audio = new Audio(gameMove)
         audio.play()
     }
+    const selectMessage = () => {
+        if (fen === ''){
+            return (
+                <div className={'selectMessage'}>Select a Position</div>
+            )
+        }
+    }
 
     return (
-        <Box sx={{mt: '5px'}}>
+        <Box sx={{mt: '5px'}} width={width} className={'muiSelectBox'}>
+            {selectMessage()}
             <FormControl fullWidth>
-                <InputLabel id="simple-select-label">Position</InputLabel>
                 <Select
                     labelId="simple-select-label"
                     id="simple-select"
                     label="Position"
                     value={fen}
                     onChange={handleChange}
+                    width={width}
+                    sx={{color: '#DCD7C9', border: 0}}
+                    variant='standard'
                 >
                     {positions.map((x, i)=><MenuItem value={x} key={i}>{x}</MenuItem>)}
                 </Select>

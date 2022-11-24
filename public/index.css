@@ -72,12 +72,20 @@ body {
 
 .bottomBar {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     background: #3F4E4F;
     padding: 2px;
     margin: 5px auto;
     border: 2px solid #A27B5C;
 }
+
+.muiSelectBox {
+    display: flex;
+    margin: auto;
+    border: 2px solid #A27B5C;
+    background: #3F4E4F;
+}
+
 
 #menu-background-pattern {
     height: 100vh;
@@ -105,4 +113,25 @@ body {
     opacity: 0.2;
     background-position: center 50%;
     background-size: 110vmax;
+}
+
+.bottomBarButton:hover {
+    background-color: #2C3639;
+}
+
+.bottomBarButton {
+    background-color: #3F4E4F;
+    color: #DCD7C9;
+    font-family: "Ibarra Real Nova", serif;
+    display: block;
+    border: 1px solid #A27B5C;
+    border-radius: 5px;
+}
+
+.selectMessage {
+    position: absolute;
+    font-family: "Ibarra Real Nova", serif;
+    font-size: large;
+    text-align: center;
+    color: #DCD7C9;
 }

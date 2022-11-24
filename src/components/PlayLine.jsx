@@ -5,6 +5,7 @@ import { Chess } from 'chess.js'
 import WinScreen from './WinScreen'
 import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
+import gameWin from '../audio/gameWin.mp3'
 import TopBar from './TopBar'
 import BottomBar from './BottomBar'
 import { Box } from '@mui/system'
@@ -20,6 +21,7 @@ import { Box } from '@mui/system'
 const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
 
     const [chess, setChess] = useState(new Chess())
+    const [hints, setHints] = useState([])
 
     useEffect(()=>{
         setChess(new Chess())
@@ -46,20 +48,22 @@ const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
             if (line[chess.pgn()].includes(copy.pgn())){
                 setChess(copy)
                 let audio = new Audio(gameMove)
-                if(!line[line[chess.pgn()]]){
-                    alert('You finishd the Line!')
+                if(!line[line[chess.pgn()][0]]){
+                    audio = new Audio(gameWin)
+                    audio.play()
                     endLine = true
                     setChess(false)
                 } else if (side === 'black'){
-                    if(!line[line[line[chess.pgn()]]]){
-                        alert('You finished the Line!')
+                    if(!line[line[line[chess.pgn()][0]]]){
+                        let audio = new Audio(gameWin)
+                        audio.play()
                         endLine = true
                         setChess(false)
                     }
                 }
                 if (!endLine){
                     audio.play()
-                    makeNextMove()
+                    makeNextMove(copy.pgn())
                 }
             } else {
                 let audio = new Audio(computerError)
@@ -79,27 +83,53 @@ const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
     }
 
     //makes the next move in the line
-    const makeNextMove = () => {
-        let nextMove = line[chess.pgn()]
-        let num = line[nextMove].length
-        let index = Math.floor(Math.random() * num)
-        if (line[nextMove][index]){
+    const makeNextMove = (pgn) => {
+        let nextMove = line[pgn]
+        let index
+        if (nextMove){
+            let num = nextMove.length
+            if (num > 1){
+                index = Math.floor(Math.random() * num)
+            } else {
+                index = 0
+            }
+
             let copy = new Chess()
-            copy.loadPgn(line[nextMove][index])
-            setChess(copy)
-            //check if a next move is in the line, if not user has won and chess is set to false
-            if (!line[copy.pgn()]){
+            copy.loadPgn(nextMove[index])
+            if (line[copy.pgn()]){
+                setChess(copy)
+            } else {
+                let audio = new Audio(gameWin)
+                audio.play()
                 setChess(false)
             }
         } else {
-            console.log('end')
+            let audio = new Audio(gameWin)
+            audio.play()
+            setChess(false)
         }
+        
     }
 
+    const getHint = () => {
+        let copy = chess
+        let nextMoves = line[copy.pgn()]
+        nextMoves = nextMoves.map(x=>{
+            let temp = new Chess()
+            temp.loadPgn(x)
+            const history = temp.history({ verbose: true })
+            return [history[history.length - 1].from, history[history.length - 1].to]
+        })
+        setHints(nextMoves)
+    }
     if (chess === false){
         return (
+                <WinScreen setChess={setChess} userInfo={userInfo} setHints={setHints}  width={width} height={height} line={line} side={side} lineName={lineName} />
+        )
+    } else if (!line[chess.pgn()][0].length >= 1){
+        return (
             <div>
-                <WinScreen setChess={setChess}/>
+                WIN
             </div>
         )
     } else {
@@ -112,9 +142,12 @@ const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
                         onPieceDrop={onDrop}
                         position={chess.fen()}
                         boardOrientation={side}
+                        customArrows={hints}
                     />
                 </Box>
-                <BottomBar width={square* 0.8}/>
+                <BottomBar width={square* 0.8} buttons={[['Get Hint', getHint]]}/>
+            <div id={'menu-background-pattern'}></div>
+            <div id={'menu-background-img'}></div>
             </Box>
         )
     }

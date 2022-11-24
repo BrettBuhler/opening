@@ -6,8 +6,10 @@ import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import gameMove from '../audio/gameMove.mp3'
 import computerError from '../audio/computerError.mp3'
+import TopBar from './TopBar'
+import BottomBar from './BottomBar'
 
-const EditLine = ({ line, userObject, displayPosition, square }) => {
+const EditLine = ({ line, userObject, displayPosition, square, userInfo }) => {
     const [saved, setSaved] = useState(false)
     const [chess, setChess] = useState(displayPosition)
     const [fenList, setFenList] = useState([])
@@ -90,10 +92,13 @@ const EditLine = ({ line, userObject, displayPosition, square }) => {
     if (!saved){
         return (
             <Box>
-                <Chessboard position={chess.fen()} boardWidth={square * 0.8} onPieceDrop={onDrop}/>
-                <button onClick={()=>genFen('')}>Get Fen</button>
-                <button onClick={()=>console.log(fenList)}>log fen</button>
-                <button onClick={handleSave}>Save Line</button>
+                <TopBar userInfo={userInfo} login={false} menuName={"Edit Line"}/>
+                <Box className='chessBox'>
+                    <Chessboard position={chess.fen()} boardWidth={square * 0.8} onPieceDrop={onDrop}/>
+                </Box>
+                <BottomBar width={square * 0.8} buttons={[['Save', handleSave]]}/>
+                <div id={'menu-background-pattern'}></div>
+                <div id={'menu-background-img'}></div>
             </Box>
         )
     } else {

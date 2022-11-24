@@ -2,11 +2,14 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Chessboard } from 'react-chessboard'
 import { Chess } from 'chess.js'
+import { Box } from '@mui/system'
 import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
 import audioBack from '../audio/audioBack.mp3'
 import userService from '../services/chessList'
 import { Navigate } from 'react-router-dom'
+import TopBar from './TopBar'
+import BottomBar from './BottomBar'
 
 /**
  * The NewLine component renders an interactive chessboard where the user can input a new line.
@@ -15,7 +18,7 @@ import { Navigate } from 'react-router-dom'
  * Lines are color agnostic... meaning when a line is saved, the line can be played as either black or white.
  */
 
-const NewLine = ({ user, lines, width, height }) => {
+const NewLine = ({ user, lines, width, height, userInfo }) => {
     //sets size of chessboard relative to window size
     const square = width < height ? width : height
     //init new chessboard
@@ -98,6 +101,8 @@ const NewLine = ({ user, lines, width, height }) => {
             if (openings.includes(name)){
                 console.error(`${name} is already saved, please try to save the line with a new name.`)
                 alert(`"${name}" is already taken, please try again.`)
+            } else if (!name) {
+                alert('A line must have a name to be saved.')
             } else {
                 lines.openings[name] = getFen()
                 userService.deleteUser(user).then(()=>{
@@ -109,17 +114,20 @@ const NewLine = ({ user, lines, width, height }) => {
     }
     if(!saved){
         return (
-            <div>
-                <Chessboard
-                    boardWidth={square * 0.8}
-                    onPieceDrop={onDrop}
-                    position={chess.fen()}
-                    boardOrientation={getSide(side)}
-                />
-                <button className='sideButton button' onClick={toggleSide}>SIDE</button>
-                <button onClick={handleSave}>Save</button>
-                <button onClick={handleBack}>Back</button>
-            </div>
+            <Box>
+                <TopBar login={false} userInfo={userInfo} menuName={'New Line'}/>
+                <Box className={'chessBox'}>
+                    <Chessboard
+                        boardWidth={square * 0.8}
+                        onPieceDrop={onDrop}
+                        position={chess.fen()}
+                        boardOrientation={getSide(side)}
+                    />
+                </Box>
+                <BottomBar width={square* 0.8} buttons={[['Undo', handleBack],['Save', handleSave]]}/>
+                <div id={'menu-background-pattern'}></div>
+                <div id={'menu-background-img'}></div>
+            </Box>
         )
     } else {
         return (

@@ -58,8 +58,6 @@ const App = () => {
             setUser={setUser}
             userInfo={userInfo}
             setUserInfo={setUserInfo}
-            side={side}
-            setSide={setSide}
           />}/>
           <Route path='/newline' element={<NewLineRoute
             user={user}
