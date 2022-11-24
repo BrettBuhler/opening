@@ -4,7 +4,7 @@ import EditLine from '../components/EditLine'
 import EditOptions from '../components/EditOptions'
 import Menu from '../components/Menu'
 
-const EditLineRoute = ({ lines, width, height }) => {
+const EditLineRoute = ({ lines, width, height, userInfo, setUserInfo }) => {
     const [option, setOption] = useState(false)
     const [items, setItems] = useState([])
 
@@ -27,13 +27,13 @@ const EditLineRoute = ({ lines, width, height }) => {
     if (option === false){
         return (
             <div>
-                <Menu items={items} menuName={'Select Line to Edit'} setOption={setOption}/>
+                <Menu items={items} menuName={'Select Line to Edit'} setOption={setOption} login={false} userInfo={userInfo}/>
             </div>
         )
     }
     return (
         <div>
-            <EditOptions line={option} userObject={lines} square={square}/>
+            <EditOptions line={option} userObject={lines} square={square} userInfo={userInfo}/>
         </div>
     )
 }

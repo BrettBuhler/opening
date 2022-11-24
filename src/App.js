@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import userService from './services/chessList'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { Link, Route, Routes, BrowserRouter } from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import HomeRoute from './routes/HomeRoute'
 import NewLineRoute from './routes/NewLineRoute'
 import PlayLineRoute from './routes/PlayLineRoute'
@@ -36,7 +36,6 @@ const App = () => {
   
   //get Lines from DB, if user does not exist in DB, set local state to a new user object
   useEffect(()=> {
-    console.log('useEffect')
     userService.getUser(user).then(res => {
       if(res.userName){
         if(res.openings){
@@ -51,11 +50,6 @@ const App = () => {
     })
   }, [user])
 
-  //FOR TESTING
-  const logThis = () => {
-    console.log(lines.openings)
-  }
-  //FOR TESTING
   return (
     <GoogleOAuthProvider clientId='720674888113-prj4llvboojk0ldt15dievrdpgfntlvr.apps.googleusercontent.com'>
       <BrowserRouter>
@@ -72,29 +66,32 @@ const App = () => {
             lines={lines}
             width={width}
             height={height}
+            userInfo={userInfo}
           />}/>
           <Route path='/playline' element={<PlayLineRoute
             width={width}
             height={height}
             line={lines.openings}
             side={side}
+            userInfo={userInfo}
           />}/>
           <Route path='/editline' element={<EditLineRoute
             lines={lines}
             width={width}
             height={height}
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
           />}/>
           <Route path ='endless' element ={<EndlessRoute
             lines={lines}
             width={width}
             height={height}
+            userInfo={userInfo}
           />}/>
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>
   )
 }
-
-
 
 export default App;

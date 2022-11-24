@@ -5,6 +5,9 @@ import { Chess } from 'chess.js'
 import WinScreen from './WinScreen'
 import computerError from '../audio/computerError.mp3'
 import gameMove from '../audio/gameMove.mp3'
+import TopBar from './TopBar'
+import BottomBar from './BottomBar'
+import { Box } from '@mui/system'
 
 /**
  * PlayLine recieves an opening from the user, and a side (black/white)
@@ -14,7 +17,7 @@ import gameMove from '../audio/gameMove.mp3'
  * , the component will not recognize the move as valid)
  */
 
-const PlayLine = ({ width, height, line, side }) => {
+const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
 
     const [chess, setChess] = useState(new Chess())
 
@@ -101,15 +104,18 @@ const PlayLine = ({ width, height, line, side }) => {
         )
     } else {
         return (
-            <div>
-                <Chessboard
-                    boardWidth={square * 0.8}
-                    onPieceDrop={onDrop}
-                    position={chess.fen()}
-                    boardOrientation={side}
-                />
-                <button onClick={()=>{console.log(line)}}>Show Line</button>
-            </div>
+            <Box>
+                <TopBar login={false} userInfo={userInfo} menuName={`Playing ${lineName}`}/>
+                <Box className={'chessBox'}>
+                    <Chessboard
+                        boardWidth={square * 0.8}
+                        onPieceDrop={onDrop}
+                        position={chess.fen()}
+                        boardOrientation={side}
+                    />
+                </Box>
+                <BottomBar width={square* 0.8}/>
+            </Box>
         )
     }
 }

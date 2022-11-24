@@ -1,8 +1,8 @@
 import PlayLine from '../components/PlayLine'
 import { useState, useEffect } from 'react'
-import SelectLine from '../components/SelectLine'
+import Menu from '../components/Menu'
 
-const PlayLineRoute = ({ width, height, line, side }) => {
+const PlayLineRoute = ({ width, height, line, side, userInfo}) => {
     const [selectedLine, setSelectedLine] = useState(false)
     const [openingList, setOpeningList] = useState([])
 
@@ -23,15 +23,13 @@ const PlayLineRoute = ({ width, height, line, side }) => {
 
     if (selectedLine === false){
         return (
-            <div>
-                <SelectLine lines={openingList} setSelectedLine={setSelectedLine}/>
-            </div>
+            <Menu items={openingList} menuName={'Select Line'} setOption={setSelectedLine} login={false} userInfo={userInfo}/>
         )
     } else {
         return (
             <div>
                 <PlayLine
-                    width={width} height={height} line={line[selectedLine]} side={side}
+                    width={width} height={height} line={line[selectedLine]} side={side} userInfo={userInfo} lineName = {selectedLine}
                 />
             </div>
         )

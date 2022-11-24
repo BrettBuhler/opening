@@ -4,7 +4,7 @@ import userService from '../services/chessList'
 import { Navigate } from "react-router-dom"
 import EditLineSelector from "./EditLineSelector"
 
-const EditOptions = ({line, userObject, square}) => {
+const EditOptions = ({line, userObject, square, userInfo }) => {
     const [option, setOption] = useState('')
 
     useEffect(()=>{
@@ -14,7 +14,7 @@ const EditOptions = ({line, userObject, square}) => {
 
     if (option === false){
         return (
-            <Menu items={['Delete', 'Add Side-line', 'Edit Line', 'Help']} menuName={`Edit: ${line}`} setOption={setOption}/>
+            <Menu items={['Delete', 'Add Side-line', 'Edit Line', 'Help']} menuName={`Edit: ${line}`} setOption={setOption} login={false} userInfo={userInfo}/>
         )
     }
     switch(option){
