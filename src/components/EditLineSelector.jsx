@@ -2,17 +2,22 @@ import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import { useState, useEffect } from 'react'
 import MuiSelect from './MuiSelect'
-import { Box, Button, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import EditLine from './EditLine'
 import AddSideLine from './AddSideLine'
 import TopBar from './TopBar'
 import BottomBar from './BottomBar'
 
+/*
+Renders a select where the user can choose the position they want to edit. when a user picks a position, that position is rendered to a
+chessboard.
+*/
+
 const EditLineSelector = ({ line, userObject, square, mode, userInfo}) => {
     const [positions, setPositions] = useState([])
     const [displayPosition, setDisplayPosition] = useState(new Chess())
     const [positionSelected, setPositionSelected] = useState(false)
-
+    //gets possible positions from userObject
     const getPositions = () => {
         let newPositions = []
         for (let i in userObject.openings[line]){
@@ -20,11 +25,11 @@ const EditLineSelector = ({ line, userObject, square, mode, userInfo}) => {
         }
         setPositions(newPositions)
     }
-
+    //handles continue click
     const handleClick = () => {
         setPositionSelected(true)
     }
-
+    //sets positions
     useEffect(()=>{
         getPositions()
         setDisplayPosition(new Chess())
@@ -35,7 +40,7 @@ const EditLineSelector = ({ line, userObject, square, mode, userInfo}) => {
             <Box>
                 <TopBar userInfo={userInfo} login={false} menuName={'Select Position'}/>
                 <Box className={'chessBox'}>
-                    <Chessboard boardWidth={square * 0.8} position={displayPosition.fen()} onPieceDrop={()=>console.log('hi')}/>
+                    <Chessboard boardWidth={square * 0.8} position={displayPosition.fen()} arePiecesDraggable={false}/>
                 </Box>
                 <MuiSelect positions={positions} setDisplayPosition={setDisplayPosition} width={square * 0.8}/>
                 <BottomBar buttons={[['Continue', handleClick]]} width={square * 0.8}/>
@@ -43,7 +48,8 @@ const EditLineSelector = ({ line, userObject, square, mode, userInfo}) => {
                 <div id={'menu-background-img'}></div>
             </Box>
         )
-    } else if (mode == 'Edit Line') {
+        //if mode == 'Edit Line' reutrn editline component else return addsideline component
+    } else if (mode === 'Edit Line') {
         return (
             <EditLine line={line} userObject={userObject} displayPosition={displayPosition} square={square} userInfo={userInfo}/>
         )

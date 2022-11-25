@@ -1,5 +1,5 @@
 import { Box } from '@mui/system'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import userService from '../services/chessList'
 import { Chess } from 'chess.js'
@@ -9,6 +9,10 @@ import computerError from '../audio/computerError.mp3'
 import TopBar from './TopBar'
 import BottomBar from './BottomBar'
 
+/*
+AddSideLine lets the user fork a line from the database. This way positions have have multiple correct moves and lines
+can become more complex.
+*/
 
 const AddSideLine = ({ line, userObject, displayPosition, square, userInfo}) => {
     const [saved, setSaved] = useState(false)

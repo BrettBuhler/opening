@@ -12,7 +12,7 @@ import BottomBar from './BottomBar'
 const EditLine = ({ line, userObject, displayPosition, square, userInfo }) => {
     const [saved, setSaved] = useState(false)
     const [chess, setChess] = useState(displayPosition)
-    const [fenList, setFenList] = useState([])
+    const [fenList, setFenList] = useState('')
 
     //sets the fenList to a an array usable by the onDrop function
     useEffect(()=>{
@@ -23,7 +23,7 @@ const EditLine = ({ line, userObject, displayPosition, square, userInfo }) => {
     // whatever moves come after the selected point.
     // The function is recursive and returns all branches of the Line that are not cut off by the users selected state.
     const genFen = (pgn, relations=[]) => {
-        if (pgn == displayPosition.pgn()){
+        if (pgn === displayPosition.pgn()){
             return relations
         }
         let relation = genRelation(pgn)
@@ -87,7 +87,7 @@ const EditLine = ({ line, userObject, displayPosition, square, userInfo }) => {
     }
     /*
     If the user has not saved their edited line, render a chessboard.
-    If the user has saved, returnt he user to the home route
+    If the user has saved, return the user to the home route
     */
     if (!saved){
         return (

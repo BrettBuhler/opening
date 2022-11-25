@@ -3,11 +3,17 @@ import { Box } from "@mui/system"
 import { GoogleLogin } from "@react-oauth/google"
 import jwt_decode from 'jwt-decode'
 
+/*
+TopBar renders a Nav bar for the user that displays the user's name / login button, the app's name, and a menuName.
+if login=false, the login button will not be rendered
+*/
+
 const TopBar = ({ login, userInfo, setUser, setUserInfo, menuName}) => {
 
+    //if !loginButton or userInfo.name != guest, don't render the login button
     const loginButton = () => {
         if (login) {
-            if(userInfo.name == 'guest'){
+            if(userInfo.name === 'guest'){
                 return (
                     <Box>
                         <GoogleLogin
@@ -41,6 +47,7 @@ const TopBar = ({ login, userInfo, setUser, setUserInfo, menuName}) => {
             )
         }
     }
+    //if width < 600 do not render middle text
     const middleText = () => {
         let width = window.screen.width
         if (width > 600){

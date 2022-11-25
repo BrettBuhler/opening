@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import Endless from '../components/Endless'
 import Menu from '../components/Menu'
-
+/*
+Renders a menu that lets a user select what color they want to play
+*/
 const EndlessRoute = ({ lines, height, width, userInfo }) => {
     const [option, setOption] = useState(false)
 

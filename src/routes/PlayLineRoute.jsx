@@ -2,6 +2,9 @@ import PlayLine from '../components/PlayLine'
 import { useState, useEffect } from 'react'
 import Menu from '../components/Menu'
 
+//Renders manu where a user can select a line to play, then a menu where the user selects what color to play. Then
+//Render a PlayLine component
+
 const PlayLineRoute = ({ width, height, line, userInfo}) => {
     const [selectedLine, setSelectedLine] = useState(false)
     const [openingList, setOpeningList] = useState([])

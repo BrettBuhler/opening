@@ -3,6 +3,12 @@ import { Box } from "@mui/system"
 import TopBar from "./TopBar"
 import { useState } from "react"
 
+/*
+The menu component renders a custom menu with editable menu items, menu name, an optional login button.
+the component requries a setOption hook. When a user selects one of the menu items, the parent component's option is updated. (this then
+    renders the next component)
+*/
+
 const Menu = ({ items, menuName, setOption, login , setUser, setUserInfo, userInfo}) => {
     const [backgroundStyle, setBackgroundStyle] = useState('0')
     const [backgroundSize, setBackgroundSize] = useState('15vmin 15vmin')

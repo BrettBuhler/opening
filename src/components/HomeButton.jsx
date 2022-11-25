@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
+//return the user home
 const HomeButton = ({ text }) => {
   
     return (

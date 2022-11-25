@@ -1,5 +1,7 @@
 import NewLine from '../components/NewLine'
 
+//Renders a NewLine component
+
 export default function NewLineRoute({ user, lines, width, height, userInfo }) {
     return (
             <NewLine

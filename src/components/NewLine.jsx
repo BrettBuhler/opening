@@ -38,7 +38,7 @@ const NewLine = ({ user, lines, width, height, userInfo }) => {
         if (!lines.openings){
             lines['openings'] = {}
         }
-    },[])
+    },[lines])
     //getFen generates an exportable fen string from fenList (This is how lines are saved to the DB)
     const getFen = () => {
         const dict = {}
@@ -62,7 +62,6 @@ const NewLine = ({ user, lines, width, height, userInfo }) => {
             let audio = new Audio(computerError)
             audio.play()
         }
-        console.log(fenList)
         return copy
     }
     //returns current side
@@ -78,7 +77,7 @@ const NewLine = ({ user, lines, width, height, userInfo }) => {
     }
     //Undo a Move
     const handleBack = () =>{
-        if (fenList.length == 0){
+        if (fenList.length === 0){
             let audio = new Audio(computerError)
             audio.play()
         } else {
@@ -124,7 +123,7 @@ const NewLine = ({ user, lines, width, height, userInfo }) => {
                         boardOrientation={getSide(side)}
                     />
                 </Box>
-                <BottomBar width={square* 0.8} buttons={[['Undo', handleBack],['Save', handleSave]]}/>
+                <BottomBar width={square* 0.8} buttons={[['Undo', handleBack], ['Change Side', toggleSide], ['Save', handleSave]]}/>
                 <div id={'menu-background-pattern'}></div>
                 <div id={'menu-background-img'}></div>
             </Box>

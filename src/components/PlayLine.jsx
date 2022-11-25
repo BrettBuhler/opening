@@ -111,6 +111,7 @@ const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
         
     }
 
+    //Finds the next move and sets hints to the next move or moves
     const getHint = () => {
         let copy = chess
         let nextMoves = line[copy.pgn()]
@@ -128,9 +129,7 @@ const PlayLine = ({ width, height, line, side, userInfo, lineName }) => {
         )
     } else if (!line[chess.pgn()][0].length >= 1){
         return (
-            <div>
-                WIN
-            </div>
+            <WinScreen setChess={setChess} userInfo={userInfo} setHints={setHints}  width={width} height={height} line={line} side={side} lineName={lineName} />
         )
     } else {
         return (

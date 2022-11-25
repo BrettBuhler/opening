@@ -1,12 +1,17 @@
-import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from "@mui/material"
-import { useState, useEffect } from "react"
+import { FormControl, Select, MenuItem, Box, } from "@mui/material"
+import { useState } from "react"
 import { Chess } from "chess.js"
 import gameMove from '../audio/gameMove.mp3'
+
+/*
+MuiSelect is a custom component that builds upon Mui's basic select component
+custom style and handleChange / selectMessage functions have been added.
+*/
 
 const MuiSelect = ({ positions, setDisplayPosition, width }) => {
     const [fen, setFen] = useState('')
 
-    
+    //sets fen to the selected option, and updates displayPosition
     const handleChange = (event) => {
         let chess = new Chess()
         chess.loadPgn(event.target.value)
@@ -15,6 +20,7 @@ const MuiSelect = ({ positions, setDisplayPosition, width }) => {
         let audio = new Audio(gameMove)
         audio.play()
     }
+    //sets default display message
     const selectMessage = () => {
         if (fen === ''){
             return (

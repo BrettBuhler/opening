@@ -1,34 +1,52 @@
 import React from 'react'
 import { useState } from 'react'
 import { Box } from '@mui/system'
-import { Link, Navigate } from 'react-router-dom'
-import { GoogleLogin } from '@react-oauth/google'
+import { Navigate } from 'react-router-dom'
 import Menu from './Menu'
-import jwt_decode from 'jwt-decode'
-import TopBar from './TopBar'
 
-const Home = ({ setUser, userInfo, setUserInfo }) => {
+/*
+The Home component renders the main menu. Depending on what option the user selects, the user is then routed to the appropriate page.
+*/
+const Home = ({ setUser, userInfo, setUserInfo, lines }) => {
     const [option, setOption] = useState(false)
+
+    //Tests for empy object
+    const isEmpty = (object) => {
+        for (let key in object){
+            if (object.hasOwnProperty(key)){
+                return false
+            }
+        }
+        return true
+    }
+
     if (!option){
         return (
+            //display a menu
             <Box>
                 <Menu items={['New Line', 'Edit Line', 'Play Line', 'Endless', 'Help']} menuName={'Main Menu'} setOption={setOption} setUser={setUser} setUserInfo={setUserInfo} login={true} userInfo={userInfo}/>
             </Box>
         )
     } else {
+        //Checks to see if user's lines are empty, if so, sends an error and returns option to default (false)
+        if (isEmpty(lines.openings)){
+            if (option === 'Edit Line' || option === 'Endless' || option === 'Play Line'){
+                alert('Opps, you don\'nt have any lines saved. Please add a line.')
+                return (
+                    <Navigate to='/help' />
+                )
+            }
+        }
+        //send user to appropriate route
         switch(option){
             case 'New Line':
                 return <Navigate to='/newline'/>
-                break
             case 'Edit Line':
                 return <Navigate to='/editline'/>
-                break
             case 'Play Line':
                 return <Navigate to='/playline'/>
-                break
             case 'Endless':
                 return <Navigate to='/endless'/>
-                break
             case 'Help':
                 return <Navigate to='/help'/>
             default:

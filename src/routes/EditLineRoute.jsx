@@ -1,8 +1,10 @@
+import { Box } from '@mui/system'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import EditLine from '../components/EditLine'
 import EditOptions from '../components/EditOptions'
 import Menu from '../components/Menu'
+
+//Renders A menu where the user can select what line they want to edit
 
 const EditLineRoute = ({ lines, width, height, userInfo, setUserInfo }) => {
     const [option, setOption] = useState(false)
@@ -26,16 +28,17 @@ const EditLineRoute = ({ lines, width, height, userInfo, setUserInfo }) => {
   
     if (option === false){
         return (
-            <div>
+            <Box>
                 <Menu items={items} menuName={'Select Line to Edit'} setOption={setOption} login={false} userInfo={userInfo}/>
-            </div>
+            </Box>
+        )
+    } else {
+        return (
+            <Box>
+                <EditOptions line={option} userObject={lines} square={square} userInfo={userInfo}/>
+            </Box>
         )
     }
-    return (
-        <div>
-            <EditOptions line={option} userObject={lines} square={square} userInfo={userInfo}/>
-        </div>
-    )
 }
 
 export default EditLineRoute

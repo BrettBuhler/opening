@@ -1,16 +1,14 @@
 import Menu from "./Menu"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import userService from '../services/chessList'
 import { Navigate } from "react-router-dom"
 import EditLineSelector from "./EditLineSelector"
 
+/*
+EditOptions renders a menu where the user can select how they want to edit a line.
+*/
 const EditOptions = ({line, userObject, square, userInfo }) => {
-    const [option, setOption] = useState('')
-
-    useEffect(()=>{
-        setOption(false)
-    },[])
-
+    const [option, setOption] = useState(false)
 
     if (option === false){
         return (
@@ -28,19 +26,22 @@ const EditOptions = ({line, userObject, square, userInfo }) => {
             return (
                 <Navigate to={'/'} />
             )
-            break
         case 'Add Side-line':
             return (
                 <EditLineSelector line={line} userObject={userObject} square={square} mode={'Add Side-line'} userInfo={userInfo}/>
             )
-            break
         case 'Edit Line':
             return (
                 <EditLineSelector line={line} userObject={userObject} square={square} mode={'Edit Line'} userInfo={userInfo}/>
             )
-        default:
+        case 'Help':
             return (
-                <div>help</div>
+                <Navigate to={'/help'} />
+            )
+        default:
+            console.log(option)
+            return (
+                <Navigate to={'/'} />
             )
     }
 }
