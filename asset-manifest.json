@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/opening/static/js/main.529fc1dd.js",
+    "main.js": "/opening/static/js/main.d9e518b7.js",
     "static/media/gameWin.mp3": "/opening/static/media/gameWin.84fe7b8da8374b0e1a6b.mp3",
     "static/media/audioBack.mp3": "/opening/static/media/audioBack.f6cdfec2574dd82ce0e9.mp3",
     "static/media/gameMove.mp3": "/opening/static/media/gameMove.c5653f7dbc4bb3d63e3a.mp3",
     "static/media/computerError.mp3": "/opening/static/media/computerError.4201d82c8177978b4b3d.mp3",
     "index.html": "/opening/index.html",
-    "main.529fc1dd.js.map": "/opening/static/js/main.529fc1dd.js.map"
+    "main.d9e518b7.js.map": "/opening/static/js/main.d9e518b7.js.map"
   },
   "entrypoints": [
-    "static/js/main.529fc1dd.js"
+    "static/js/main.d9e518b7.js"
   ]
 }
