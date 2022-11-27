@@ -88,7 +88,7 @@ const AddSideLine = ({ line, userObject, displayPosition, square, userInfo}) => 
     //after the user saves, return the user to the home page
     } else {
         return (
-            <Navigate to='/' />
+            <Navigate to='/opening' />
         )
     }
 }

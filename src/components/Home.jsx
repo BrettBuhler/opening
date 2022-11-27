@@ -33,24 +33,24 @@ const Home = ({ setUser, userInfo, setUserInfo, lines }) => {
             if (option === 'Edit Line' || option === 'Endless' || option === 'Play Line'){
                 alert('Opps, you don\'nt have any lines saved. Please add a line.')
                 return (
-                    <Navigate to='/help' />
+                    <Navigate to='/opening/help' />
                 )
             }
         }
         //send user to appropriate route
         switch(option){
             case 'New Line':
-                return <Navigate to='/newline'/>
+                return <Navigate to='/opening/newline'/>
             case 'Edit Line':
-                return <Navigate to='/editline'/>
+                return <Navigate to='/opening/editline'/>
             case 'Play Line':
-                return <Navigate to='/playline'/>
+                return <Navigate to='/opening/playline'/>
             case 'Endless':
-                return <Navigate to='/endless'/>
+                return <Navigate to='/opening/endless'/>
             case 'Help':
-                return <Navigate to='/help'/>
+                return <Navigate to='/opening/help'/>
             default:
-                return <Navigate to='/'/>
+                return <Navigate to='/opening'/>
         }
     }
 }

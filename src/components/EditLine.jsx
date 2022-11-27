@@ -103,7 +103,7 @@ const EditLine = ({ line, userObject, displayPosition, square, userInfo }) => {
         )
     } else {
         return (
-            <Navigate to='/' />
+            <Navigate to='/opening' />
         )
     }
 }

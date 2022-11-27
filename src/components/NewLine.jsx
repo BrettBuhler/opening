@@ -130,7 +130,7 @@ const NewLine = ({ user, lines, width, height, userInfo }) => {
         )
     } else {
         return (
-            <Navigate to='/' />
+            <Navigate to='/opening' />
         )
     }
 }

@@ -24,7 +24,7 @@ const EditOptions = ({line, userObject, square, userInfo }) => {
                 })
             }
             return (
-                <Navigate to={'/'} />
+                <Navigate to={'/opening'} />
             )
         case 'Add Side-line':
             return (
@@ -36,12 +36,12 @@ const EditOptions = ({line, userObject, square, userInfo }) => {
             )
         case 'Help':
             return (
-                <Navigate to={'/help'} />
+                <Navigate to={'/opening/help'} />
             )
         default:
             console.log(option)
             return (
-                <Navigate to={'/'} />
+                <Navigate to={'/opening'} />
             )
     }
 }

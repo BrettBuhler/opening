@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const HomeButton = ({ text }) => {
   
     return (
-        <NavLink to='/'>{text}</NavLink>
+        <NavLink to='/opening'>{text}</NavLink>
     )
 }
 

@@ -55,40 +55,40 @@ const App = () => {
     <GoogleOAuthProvider clientId={'720674888113-prj4llvboojk0ldt15dievrdpgfntlvr.apps.googleusercontent.com'}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<HomeRoute
+          <Route path='/opening' element={<HomeRoute
             setUser={setUser}
             userInfo={userInfo}
             setUserInfo={setUserInfo}
             lines={lines}
           />}/>
-          <Route path='/newline' element={<NewLineRoute
+          <Route path='/opening/newline' element={<NewLineRoute
             user={user}
             lines={lines}
             width={width}
             height={height}
             userInfo={userInfo}
           />}/>
-          <Route path='/playline' element={<PlayLineRoute
+          <Route path='/opening/playline' element={<PlayLineRoute
             width={width}
             height={height}
             line={lines.openings}
             side={side}
             userInfo={userInfo}
           />}/>
-          <Route path='/editline' element={<EditLineRoute
+          <Route path='/opening/editline' element={<EditLineRoute
             lines={lines}
             width={width}
             height={height}
             userInfo={userInfo}
             setUserInfo={setUserInfo}
           />}/>
-          <Route path='/endless' element ={<EndlessRoute
+          <Route path='/opening/endless' element ={<EndlessRoute
             lines={lines}
             width={width}
             height={height}
             userInfo={userInfo}
           />}/>
-          <Route path='/help' element = {<HelpRoute
+          <Route path='/opening/help' element = {<HelpRoute
             userInfo={userInfo}
           />}/>
         </Routes>

@@ -46,7 +46,7 @@ To start, log in using a google account (The button on the top right of the Home
         )
     } else {
         return (
-            <Navigate to='/' />
+            <Navigate to='/opening' />
         )
     }
 }

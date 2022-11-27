@@ -16,7 +16,7 @@ const WinScreen = ({ userInfo, width, height, line, side, lineName  }) => {
         )
     } else if (option === 'Return Home') {
         return (
-            <Navigate to={'/'} />
+            <Navigate to={'/opening'} />
         )
     } else {
         return (

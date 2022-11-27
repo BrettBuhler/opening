@@ -25,7 +25,7 @@ const BottomBar = ({ width, buttons }) => {
         )
     } else {
         return (
-            <Navigate to={'/'} />
+            <Navigate to={'/opening'} />
         )
     }
 }
