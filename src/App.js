@@ -52,7 +52,7 @@ const App = () => {
   }, [user])
 
   return (
-    <GoogleOAuthProvider clientId='720674888113-prj4llvboojk0ldt15dievrdpgfntlvr.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={'720674888113-prj4llvboojk0ldt15dievrdpgfntlvr.apps.googleusercontent.com'}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomeRoute
