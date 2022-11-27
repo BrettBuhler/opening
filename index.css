@@ -1,0 +1,170 @@
+body {
+    background: #2C3639;
+    margin: 0px;
+}
+
+.menuBox {
+    height: 60vh;
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    padding-left: 25%;
+    padding-top: 5%;
+}
+
+.menuItems {
+    display: inline-block;
+    width: 200px;
+}
+
+.menuItems:hover > .menuButton {
+    opacity: 0.3;
+}
+
+.menuItems:hover > .menuButton:hover {
+    opacity: 1;
+}
+
+.menuButton:hover {
+    background-color: #3F4E4F;
+}
+
+.menuButton {
+    background-color: transparent;
+    color: #DCD7C9;
+    font-family: "Ibarra Real Nova", serif;
+    display: block;
+    border: 2px solid #A27B5C;
+    padding: clamp(0.25rem, 0.5vw, 1rem) 0rem;
+    border-radius: 5px;
+    font-size: large;
+    min-width: 200px;
+    margin-bottom: 10px;
+}
+
+.topBarBox {
+    display: flex;
+    background-color: #3F4E4F;
+    border-bottom: 2px solid #A27B5C;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 200px;
+    height: 10vh;
+    z-index: 2;
+}
+
+.topBarText {
+    color:#DCD7C9;
+    font-family: "Ibarra Real Nova", serif;
+}
+
+#middleText {
+    justify-self: center;
+}
+
+
+.chessBox {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.bottomBar {
+    display: flex;
+    justify-content: space-evenly;
+    background: #3F4E4F;
+    padding: 2px;
+    margin: 5px auto;
+    border: 2px solid #A27B5C;
+}
+
+.muiSelectBox {
+    display: flex;
+    margin: auto;
+    border: 2px solid #A27B5C;
+    background: #3F4E4F;
+}
+
+
+#menu-background-pattern {
+    height: 100vh;
+    width: 100vw;
+    background-image: radial-gradient(
+        rgba(225, 255,255, 0.1) 9%,
+        transparent 9%
+    );
+    background-position: 0% 0%;
+    background-size: 15vmin 15vmin;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+#menu-background-img {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("./images/chessImage.jpg");
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: -2;
+    opacity: 0.2;
+    background-position: center 50%;
+    background-size: 110vmax;
+}
+
+.bottomBarButton:hover {
+    background-color: #2C3639;
+}
+
+.bottomBarButton {
+    background-color: #3F4E4F;
+    color: #DCD7C9;
+    font-family: "Ibarra Real Nova", serif;
+    display: block;
+    border: 1px solid #A27B5C;
+    border-radius: 5px;
+}
+
+.selectMessage {
+    position: absolute;
+    font-family: "Ibarra Real Nova", serif;
+    font-size: large;
+    text-align: center;
+    color: #DCD7C9;
+}
+
+.helpBox {
+    background-color: #3F4E4F;
+    height: fit-content;
+    border-radius: 4px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 70vw;
+}
+
+.helpBackgroundBox {
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    
+}
+
+.helpHomeButton {
+    margin-top: 5px;
+    margin-right: 5px;
+    float: right;
+    background-color: #3F4E4F;
+    color: #DCD7C9;
+    font-family: "Ibarra Real Nova", serif;
+    border: 1px solid #A27B5C;
+    border-radius: 5px;
+    font-size: large;
+}
+
+.helpHomeButton:hover {
+    background-color: #2C3639;
+}
