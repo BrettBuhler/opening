@@ -9,6 +9,10 @@ import computerError from '../audio/computerError.mp3'
 import TopBar from './TopBar'
 import BottomBar from './BottomBar'
 
+/*
+Edit Line allows users to edit lines from any point in the saved line. This has the possibility of generating large Tree 
+Data structures as each node can point to an undefined number of children.
+*/
 const EditLine = ({ line, userObject, displayPosition, square, userInfo }) => {
     const [saved, setSaved] = useState(false)
     const [chess, setChess] = useState(displayPosition)

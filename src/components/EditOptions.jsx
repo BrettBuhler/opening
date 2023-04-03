@@ -15,6 +15,7 @@ const EditOptions = ({line, userObject, square, userInfo }) => {
             <Menu items={['Delete', 'Add Side-line', 'Edit Line', 'Help']} menuName={`Edit: ${line}`} setOption={setOption} login={false} userInfo={userInfo}/>
         )
     }
+    //depending on user inpt different gamemode components will be rendered
     switch(option){
         case 'Delete':
             if (window.confirm(`Are you sure you want to delete ${line}?`)){

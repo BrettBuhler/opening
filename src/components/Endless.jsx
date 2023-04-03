@@ -94,7 +94,7 @@ const Endless = ({ lines, side, square, userInfo }) => {
             audio.play()
             setChess(tempChess)
     }
-
+    //endless is only terminated when the user selects go home from the bottom bar
     return (
         <Box>
             <TopBar login={false} userInfo={userInfo} menuName={'Endless Chess'}/>

@@ -15,7 +15,7 @@ const BottomBar = ({ width, buttons }) => {
         setGoHome(true)
     }
 
-
+    //render Bottom bar, if goHome is true return Home
     if (!goHome){
         return (
             <Box className={'bottomBar'} style={{width: width}}>

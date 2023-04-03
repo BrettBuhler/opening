@@ -35,6 +35,7 @@ const EditLineSelector = ({ line, userObject, square, mode, userInfo}) => {
         setDisplayPosition(new Chess())
     },[])
 
+    // Render selection menu until the user makes a selection or presses "go home" on the bottom bar
     if (!positionSelected){
         return (
             <Box>

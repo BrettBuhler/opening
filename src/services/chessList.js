@@ -8,7 +8,7 @@ import axios from 'axios'
 const baseUrl = 'https://opening-db.uc.r.appspot.com/api/users'
 
 //get a user's data by username (email for users who login, or 'guest' for those who don't)
-const getUser = (userName) => {
+const getUser = async (userName) => {
     const req = axios.get(`${baseUrl}/${userName}`)
         .then(res => {
            return res.data
@@ -16,21 +16,26 @@ const getUser = (userName) => {
             const newReq = createUser({openings:{},userName:userName})
             return newReq.then(res=>res)
         })
-    return req.then(res=>res)
+    const res_2 = await req
+    return res_2
 }
 
 //create a new user
-const createUser = (userObject) => {
+const createUser = async (userObject) => {
     const req = axios.post(baseUrl, userObject)
-    return req.then(res => res.data).catch(error => {
+    try {
+        const res = await req
+        return res.data
+    } catch (error) {
         console.log(error.response.data.error)
-    })
+    }
 }
 
 //delete a user
-const deleteUser = (userName) => {
+const deleteUser = async (userName) => {
     const req = axios.delete(`${baseUrl}/${userName}`)
-    return req.then(res=>res)
+    const res = await req
+    return res
 }
 
 export default { getUser, createUser, deleteUser }
