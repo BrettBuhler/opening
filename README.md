@@ -13,6 +13,7 @@ Second, I wanted to test and develop my software engineering abilities. Before O
 ## Demo
 try the app at https://brettbuhler.github.io/opening/
 ![](public\images\om.gif)
+watch the demo at https://www.youtube.com/watch?v=k055ql_oXhA
 
 ## Back End
 
